@@ -1,0 +1,11 @@
+# Versions verified in the s2s Conda environment (Python 3.9).
+gym==0.13.0
+stable-baselines3==2.7.1
+shimmy==2.0.0
+torch==2.8.0
+numpy==1.26.4
+pandas==2.3.3
+scipy==1.13.1
+PyYAML==6.0.3
+tensorboard==2.20.0
+tqdm==4.67.3

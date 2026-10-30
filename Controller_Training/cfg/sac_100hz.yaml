@@ -1,0 +1,64 @@
+trial_name: 'sl_3_100hz'
+env_id: 'H0709-v0'
+model_file: 'models/H0709.scone'
+
+# 100 Hz policy step. Change back to 0.025 for the original 40 Hz setting.
+step_size: 0.01
+
+# Keep episode horizon at 10 seconds of simulated time.
+# With step_size=0.01 this resolves to 1000 steps.
+# With step_size=0.025 this resolves to 400 steps.
+episode_duration_sec: 10.0
+
+init_activations_mean: 0.01
+init_activations_std: 0.0
+init_dof_pos_std: 0.0
+init_dof_vel_std: 0.0
+Kd_lumbar: 20
+Kp_lumbar: 200
+lumb_max_ext: 5
+lumb_min_ext: -40
+lumb_max_torque: 400
+rate_clip_threshold: 50
+seed: 1
+device: 'auto'
+
+ik_folder_path: 'data/motion_clips/ik'
+analyze_folder_path: 'data/motion_clips/analyze'
+
+w:
+  pose: 0.60
+  vel: 0.15
+  end: 0.25
+  effort: -2.0
+  knee: 0.0
+  effort_change: -2.0
+
+# for evaluation
+mc_idx: 10
+
+n_env: 40
+lr: 0.0003
+buffer_size: 1000000
+batch_size: 512
+tau: 0.01
+gamma: 0.99
+train_freq: 1
+gradient_steps: 1
+target_update_interval: 1
+
+# 250M @ 100 Hz ~= 100M @ 40 Hz in total simulated seconds.
+total_timesteps: 250000000
+
+# Callback frequencies are expressed in environment steps/calls.
+checkpoint_freq: 100000
+eval_freq: 100000
+eval_episodes: 20
+
+actor_net:
+  - 512
+  - 256
+
+critic_net:
+  - 512
+  - 256

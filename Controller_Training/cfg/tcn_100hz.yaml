@@ -1,0 +1,116 @@
+env_id: "H0709-v0"
+evaluation_mode: 1
+trial_name: "distill_sl_3_100hz_cfg_1"
+
+seed: 1
+device: "auto"
+n_env: 30
+subproc_start_method: "fork"
+deterministic: true
+
+policy_path: "results/sl_3_100hz/checkpoints/sac_model_248000000_steps.zip"
+vecnormalize_path: "results/sl_3_100hz/checkpoints/sac_model_vecnormalize_248000000_steps.pkl"
+
+save_dir: "distillation/data/generated"
+save_prefix: "sl_3_100hz_knee_moment"
+num_episodes: 2048
+shard_size: 16384
+min_episode_steps: 95
+dataset_dir: "distillation/data/generated"
+
+input_channel_names:
+  - "thigh_gyro_z"
+  - "shank_gyro_z"
+  - "knee_angle_r"
+target_name: "knee_joint_moment_over_74p5_nm"
+
+model_file: "models/H0709.scone"
+
+# 100 Hz teacher rollout. episode_duration_sec keeps the episode at 10 seconds.
+step_size: 0.01
+episode_duration_sec: 10.0
+max_step_size: 1000
+init_activations_mean: 0.01
+init_activations_std: 0.0
+init_dof_pos_std: 0.0
+init_dof_vel_std: 0.0
+Kd_lumbar: 20
+Kp_lumbar: 200
+lumb_max_ext: 5
+lumb_min_ext: -40
+lumb_max_torque: 400
+rate_clip_threshold: 50
+
+ik_folder_path: "data/motion_clips/ik"
+analyze_folder_path: "data/motion_clips/analyze"
+
+include_knee_angle: true
+sensor_window: 95
+
+mc_idx: 10
+train_mc_idx_candidates:
+  - 10
+
+w:
+  pose: 0.60
+  vel: 0.15
+  end: 0.25
+  effort: -2.0
+  knee: 0.0
+  effort_change: -2.0
+
+# supervised learning / TCN distillation
+train_device: "auto"
+student_run_name: "distill_sl_3_100hz_cfg_1_tcn"
+student_output_dir: "distillation/student_model/generated"
+tensorboard_dir: "distillation/runs/generated"
+
+normalize_x: true
+val_ratio: 0.1
+batch_size: 64
+num_workers: 4
+epochs: 50
+learning_rate: 5e-4
+weight_decay: 0.0001
+train_batches: 0
+val_batches: 0
+
+output_size: 1
+window_size: 95
+num_channels:
+  - 80
+  - 80
+  - 80
+  - 80
+kernel_size: 5
+number_of_layers: 2
+dropout: 0.15
+dilations:
+  - 1
+  - 2
+  - 4
+  - 8
+  - 16
+
+noise_enable: true
+gyro_channels: 2
+gyro_noise_prob: 0.7
+gyro_noise_big_prob: 0.15
+gyro_noise_small_min: 0.01
+gyro_noise_small_max: 0.03
+gyro_noise_big_min: 0.05
+gyro_noise_big_max: 0.10
+gyro_noise_mode: "iid"
+gyro_noise_log_uniform: false
+knee_bias_enable: true
+knee_bias_prob: 0.4
+knee_bias_deg_min: -3.0
+knee_bias_deg_max: 3.0
+knee_channel_idx: 2
+
+zero_output_data_enable: true
+zero_output_data_ratio: 0.05
+zero_output_gyro_noise_enable: true
+zero_output_gyro_noise_prob: 1.0
+zero_output_knee_bias_enable: true
+zero_output_knee_bias_prob: 1.0

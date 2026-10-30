@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+distillation/data/generated/
+distillation/student_model/generated/
+distillation/runs/
+results/smoke_training/
+SAC_rollout/
