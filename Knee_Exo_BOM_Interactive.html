@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knee Exoskeleton — Bill of Materials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{
+  --ink:#1d2329; --muted:#5f6b76; --line:#e2e6ea; --bg:#f6f8f9; --card:#fff;
+  --mech:#BB463C; --elec:#5B3F86; --low:#356854; --high:#535FC1; --total:#626E7A;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;line-height:1.45}
+header.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;margin-right:auto}
+.brand b{font-size:16px;letter-spacing:-.01em}
+.brand span{font-size:12px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:7px 12px;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+input.search{border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;font-size:13px;width:190px;background:#fff;color:#1d2329;caret-color:#1d2329;-webkit-text-fill-color:#1d2329}
+input.search::placeholder{color:#8a949d;-webkit-text-fill-color:#8a949d}
+:root{color-scheme:light}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:#c4cbd2}
+a.btn.paper{text-decoration:none;font-weight:600;color:#1d2329}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.btn.primary:hover{background:#000}
+.btn[disabled]{opacity:.55;cursor:progress}
+main{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.sum{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;border-top:4px solid var(--c);cursor:pointer;text-align:left;font:inherit;color:inherit}
+.sum:hover{box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sum .k{font-size:12px;color:var(--muted);font-weight:500}
+.sum .v{font-family:var(--mono);font-size:20px;font-weight:500;margin-top:2px}
+.sum .p{font-size:11.5px;color:var(--muted);margin-top:4px}
+.sum.grand{--c:var(--total);background:var(--total);color:#fff;cursor:default}
+.sum.grand .k,.sum.grand .p{color:#dfe3e7}
+.notes{background:#fff;border:1px solid var(--line);border-left:4px solid var(--total);border-radius:10px;padding:12px 16px;margin-bottom:22px;font-size:13px;color:#39424b}
+.notes ul{margin:6px 0 0;padding-left:18px}
+.notes li{margin:3px 0}
+.mode-tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:99px;background:#eef1f4;color:var(--muted);margin-left:6px;vertical-align:1px}
+section.grp{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:18px;overflow:hidden;scroll-margin-top:80px}
+.ghead{background:var(--c);color:#fff;display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;user-select:none}
+.ghead h2{margin:0;font-size:15px;font-weight:600;flex:1}
+.ghead .meta{font-size:12.5px;opacity:.9}
+.ghead .gt{font-family:var(--mono);font-size:15px;font-weight:500}
+.chev{transition:transform .15s;display:inline-block;width:14px}
+section.closed .chev{transform:rotate(-90deg)}
+section.closed .gbody{display:none}
+.prog{height:3px;background:rgba(0,0,0,.06)}
+.prog i{display:block;height:100%;background:var(--c);opacity:.55;width:0;transition:width .2s}
+table{width:100%;border-collapse:collapse}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);background:#fafbfc}
+td{padding:10px;border-bottom:1px solid #eef1f3;vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--bg)}
+tbody tr:last-child td{border-bottom:0}
+tr.done td{color:#9aa3ab}
+tr.done .nm{text-decoration:line-through}
+.num{text-align:right;font-family:var(--mono);white-space:nowrap}
+th.num{font-family:inherit}
+.nm{font-weight:600}
+.nm{min-width:120px}
+.pn{font-size:12.5px;color:#3c464f;max-width:380px}
+.linkc{max-width:210px}
+a.lnk{color:var(--c);text-decoration:none;font-size:12.5px;font-weight:500;word-break:break-all}
+a.lnk:hover{text-decoration:underline}
+.cpc{text-align:center;width:70px}
+button.cp{border:1px solid var(--c);color:var(--c);background:#fff;border-radius:6px;padding:4px 10px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+button.cp:hover{background:var(--c);color:#fff}
+button.cp.ok{background:var(--c);color:#fff}
+.prov{white-space:nowrap}
+.chk{width:34px;text-align:center}
+.chk input{width:16px;height:16px;accent-color:var(--c);cursor:pointer;margin-top:2px}
+.qty{width:58px;text-align:right;font-family:var(--mono);font:inherit;font-family:var(--mono);border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:#fff}
+.qty.changed{border-color:var(--c);box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 18%,transparent)}
+.bi{display:block;font-size:10.5px;color:var(--c);font-weight:600;margin-top:3px;text-align:right}
+a.buy{display:inline-block;padding:4px 10px;border-radius:6px;border:1px solid var(--c);color:var(--c);text-decoration:none;font-size:12.5px;font-weight:600;white-space:nowrap}
+a.buy:hover{background:var(--c);color:#fff}
+.gerb{font-size:12px;color:var(--muted);white-space:nowrap}
+.gfoot{display:flex;justify-content:flex-end;gap:24px;padding:10px 16px;border-top:1px solid var(--line);background:#fafbfc;font-size:13px}
+.gfoot b{font-family:var(--mono);font-weight:500}
+.empty{padding:14px 16px;color:var(--muted);font-size:13px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;max-width:360px;z-index:50}
+.toast.show{opacity:1;transform:none}
+@media (max-width:860px){
+  .summary{grid-template-columns:repeat(2,1fr)}
+  .sum.grand{grid-column:span 2}
+  .gbody{overflow-x:auto}
+  table{min-width:900px}
+  input.search{width:140px}
+}
+@media print{
+  header.top,.toast{display:none}
+  body{background:#fff}
+  main{padding:0}
+  section.grp{break-inside:auto}
+  section.closed .gbody{display:block}
+  .ghead,.sum,.prog i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cpc{display:none}
+  a.lnk{color:#1d2329}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <div class="brand"><b>Knee Exoskeleton · Bill of Materials</b><span>Open-source build · prices in USD</span></div>
+    <input class="search" type="search" placeholder="Filter parts…" aria-label="Filter parts">
+    <a class="btn paper" href="https://rajiv-j.github.io/Open-Source-Knee-Exo/" target="_blank" rel="noopener">Related Paper ↗</a>
+    <button class="btn" id="toggleAll">Collapse all</button>
+    <button class="btn" id="reset" title="Clear all checkmarks">Clear checks</button>
+    <button class="btn primary" id="pdf">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Download PDF
+    </button>
+  </div>
+</header>
+
+<main>
+  <div class="summary" id="summary"></div>
+  <div class="notes">
+    <b>Build notes</b> <span class="mode-tag" id="modeTag">Unilateral</span>
+    <ul>
+      <li>Items in this table are for a <b>unilateral</b> purchase. For <b>bilateral</b>: +1 motor, +2 IMUs, +1 Teensy.</li>
+      <li>Most purchased items are bulk, so there should be enough to cover a bilateral system too. Modify count and purchase per your needs.</li>
+      <li>Filament: the whole bilateral system can be printed with 1.5–2 kg of filament. Order more as needed.</li>
+      <li>Custom PCBs are fabricated by uploading the Gerber files to JLCPCB. Prices exclude sales tax, customs and shipping.</li>
+    </ul>
+  </div>
+  <div id="groups"></div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = [{"name": "Mechanical", "color": "#BB463C", "items": [{"name": "M4 Fastener Kit", "unit": 8.39, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0dEzoNLS", "part": "Mywish 380 Pcs M4 Screw Nuts and Bolts Assortment Kit, 304 Stainless Steel Button Head Socket Cap Metric Screws Bolts, Spring & Flat Lock Washers/Nuts/Hex Wrenches, M4*8/10/12/16/20/25/30", "bilateralExtra": 0}, {"name": "Standoff Kit", "unit": 14.69, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0955o79O", "part": "HELIFOUNER 242 Pieces M2.5 Male Female Hex Brass Spacers Standoffs Screws Nuts Assortment Kit, Threaded Pillar for Printed Circuit Board Motherboard", "bilateralExtra": 0}, {"name": "PAHT-CF Filament", "unit": 94.99, "qty": 2, "provider": "Bambu", "link": "https://us.store.bambulab.com/products/paht-cf?id=41009450483848", "part": "PAHT-CF, 1kg", "bilateralExtra": 0}, {"name": "M3 Motor Fastener", "unit": 6.36, "qty": 1, "provider": "McMaster", "link": "https://www.mcmaster.com/91294A130/", "part": "Black-Oxide Alloy Steel Hex-Drive Flat Head Screw 90 Degree Countersink, M3 x 0.5 mm Thread Size, 10 mm Long", "bilateralExtra": 0}, {"name": "Foam", "unit": 17.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/09KuAOxC", "part": "HOMBYS Upholstery Foam Memory, 1/2\" Height 72\" L x 24\" W High Density Foam Padding Couch Cushion Support,Cut to Size Foam Furniture Replacement Pad for Sofa, Mattress Sag Support, 0.5\" H, Blue", "bilateralExtra": 0}, {"name": "3D mesh", "unit": 19.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0cibKLjI", "part": "Tong Gu 3D Air Mesh Fabric Net Cloth Three Layer Sandwich Spacer 3mm Thick Craft Seat Sew Material (Black)", "bilateralExtra": 0}, {"name": "Nylon Fabric", "unit": 11.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0bUM3wLF", "part": "Precut Nylon Fabric (2 Yards x 57 inch) - Water Repellent Ripstop Fabric, Lightweight, Durable - Used for Covers, Flags, Sacks, Bags, Kites, Outdoor Crafts and DIY - Black", "bilateralExtra": 0}, {"name": "Belt", "unit": 5.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/03hOzpND", "part": "Men's Belt,Nylon Belts for Men with Plastic Buckle,Quick Release Tactical Belt,Sliding Ring Buckle", "bilateralExtra": 0}]}, {"name": "Electrical", "color": "#5B3F86", "items": [{"name": "AK80-9 V3 Motor", "unit": 579.9, "qty": 1, "provider": "CubeMars", "link": "https://www.cubemars.com/product/ak80-9-v3-0-robotic-actuator.html", "part": "AK80-9 V3.0 KV100", "bilateralExtra": 0}, {"name": "IMU", "unit": 19.95, "qty": 2, "provider": "Adafruit", "link": "https://www.adafruit.com/product/4554?srsltid=AYCX9vJ8C2Kx5ioDzrgrNrUuMd-4mdC4EPLTLP1lEBFI9ydf3amw82rL", "part": "Adafruit TDK InvenSense ICM-20948 9-DoF IMU", "bilateralExtra": 0}, {"name": "Buck Converter New", "unit": 7.65, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0db9gjQJ", "part": "EBOOT 3 Pack MP1584EN DC-DC Buck Converter 24V to 12V 9V 5V 3V Adjustable", "bilateralExtra": 0}, {"name": "Buck Converter Old", "unit": 7.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0cBbuDSb", "part": "5 Pack LM2596 DC to DC Buck Converter 3.0-40V to 1.5-35V Adjustable Voltage Regulator Electronic Voltage Stabilizer Power Supply Step Down Module", "bilateralExtra": 0}, {"name": "Battery", "unit": 75.99, "qty": 1, "provider": "HRB", "link": "https://hrb-power.com/products/hrb-2packs-6s-22-2v-3300mah-60c-xt60-rc-lipo-battery?variant=48366209990848&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AU7gw4UIETRbaClHbBTAGoSKsKJmCCFHAl5CREvu7MeHx1t9wmx_lO03g9M", "part": "HRB 2packs 6S 22.2V 3300mAh 60C XT60 RC Lipo Battery", "bilateralExtra": 0}, {"name": "Emergency Stop (E-STOP)", "unit": 12.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0gLPYfHd", "part": "APIELE 19mm Metal Emergency Stop Push Button Swicth Latching 12-250V Stianless Steel 0.74\" Mouting Hole", "bilateralExtra": 0}, {"name": "Shank IMU board", "unit": 7.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0hmI2zFF", "part": "Solderable Breadboard Mini PCB Board Gold-Plated Solder Breadboard for DIY Electronics Projects Apply to Arduino Soldering Projects 2.0\"x1.5\" Mixed Color(Pack of 6 Pcs)", "bilateralExtra": 0}, {"name": "2 pin JST - GH Connector", "unit": 0.3728, "qty": 10, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C189893.html?s_z=n_q_%2509%2520SM02B-GHS-TB&spm=wm.fly.bg.0.xh&lcsc_vid=TwNdV1UCRlJWUlBeRlYLA1MHQFQLVABWRVFZVl1QQFgxVlNfRFZcVV1RRFFcUjsOAxUeFF5JWBYZEEoKFBINSQcJGk4NBhADEA4cHktRTlNADxALGw%3D%3D", "part": "JST SM02B-GHS-TB(LF)(SN)", "bilateralExtra": 0}, {"name": "2 pin JST - GH Cable", "unit": 16.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/07Uxlu8K", "part": "20 PCS 2 PIN JST GH Connectors on Both Sides with Electric Wire 1007 28 AWG(Total Length:200MM)", "bilateralExtra": 0}]}, {"name": "Low-Level Specific PCB", "color": "#356854", "items": [{"name": "Teensy 4.1", "unit": 35.95, "qty": 1, "provider": "Sparkfun", "link": "https://www.sparkfun.com/teensy-4-1-headers.html", "part": "Teensy 4.1 (Headers)", "bilateralExtra": 0}, {"name": "Shank IMU Board", "unit": 7.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/065fXxdn", "part": "Solderable Breadboard Mini PCB Board Gold-Plated Solder Breadboard for DIY Electronics Projects Apply to Arduino Soldering Projects 2.0\"x1.5\" Mixed Color(Pack of 6 Pcs)", "bilateralExtra": 0}, {"name": "Shank IMU Wiring", "unit": 16.19, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/08nN9mnW", "part": "TUOFENG 22 AWG Solid Wire Kit, 6 Colors, 30 ft Each", "bilateralExtra": 0}, {"name": "Shank IMU cable", "unit": 11.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/06NZkQ9e", "part": "Cable Matters 10Gbps 5-Pack Snagless Cat 6 Ethernet Cable, 2ft, Black", "bilateralExtra": 0}, {"name": "CAN Tranciever Chip", "unit": 1.74, "qty": 2, "provider": "DijiKey", "link": "https://www.digikey.com/en/products/detail/nxp-usa-inc/TJA1051T-3-1J/5035822", "part": "TJA1051T/3/1J", "bilateralExtra": 0}, {"name": "4.7 uF Cap", "unit": 0.28, "qty": 10, "provider": "DijiKey", "link": "https://www.digikey.com/en/products/detail/yageo/CS1206KKX7R0BB105/6097973", "part": "CS1206KKX7R0BB105", "bilateralExtra": 0}, {"name": "60 ohm SMD Res", "unit": 0.01, "qty": 25, "provider": "DijiKey", "link": "https://www.digikey.com/en/products/detail/stackpole-electronics-inc/RMCF1206FT60R4/1754118", "part": "RMCF1206FT60R4", "bilateralExtra": 0}, {"name": "XT30PW Connection", "unit": 0.38, "qty": 3, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C431092.html", "part": "Connector XT30PW30-M.G.* Male Plug Right Angle for RC ESC", "bilateralExtra": 0}, {"name": "RJ45 Header", "unit": 8.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0dUZjbGj", "part": "Treedix 4 Pcs RJ45 8-pin Connector (8P8C) and Breakout Board Kit Compatible with Ethernet DMX-512 RS-485 RS-422 RS-232 (Unassambled)", "bilateralExtra": 0}, {"name": "Knee PCB V1", "unit": 27.0, "qty": 1, "provider": "JLCPCB", "link": null, "part": "Custom PCB, fabricate from Gerber files", "bilateralExtra": 0, "linkNote": "Upload Gerber files to JLCPCB"}]}, {"name": "High-Level Specific PCB", "color": "#535FC1", "items": [{"name": "CAN PAL", "unit": 3.95, "qty": 1, "provider": "Adafruit", "link": "https://www.adafruit.com/product/5708", "part": "Adafruit CAN Pal - CAN Bus Transceiver - TJA1051T/3", "bilateralExtra": 0}, {"name": "Jetson", "unit": 399.0, "qty": 1, "provider": "Nvidia", "link": "https://marketplace.nvidia.com/en-us/enterprise/robotics-edge/jetson-orin-nano-super-developer-kit/", "part": "Jetson Orin Nano Super Developer Kit", "bilateralExtra": 0}, {"name": "Fuse Holder", "unit": 0.288, "qty": 5, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C842712.html?s_z=n_q_C842712&globalKeyword=C842712", "part": "XFCN PTF-15", "bilateralExtra": 0}, {"name": "Fuse", "unit": 9.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/0aJ6Ptv4", "part": "BOJACK 15 Values 200 pcs Fast-Blow Glass Fuses Assortment Kit 5x20mm 250V 1 5 10 15 20A 6x30mm 250V 1 2 3 5 6 7 8 10 15 20A amp packag in a Clear Plastic Box", "bilateralExtra": 0}, {"name": "XT30 2+2 Upright", "unit": 0.4423, "qty": 4, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C19268029.html", "part": "PCB Connector XT30PB(2+2)-M.G.* Male Plug Power + Signal Connector Vertical PCB Mount Gold Plated Black", "bilateralExtra": 0}, {"name": "XT60 Battery Connection", "unit": 0.354, "qty": 5, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C98733.html?s_z=n_q_t_XT60&spm=wm.fly.bg.3.xh___wm.ssy.tc.0.tz&lcsc_vid=TwNdV1UCRlJWUlBeRlYLA1MHQFQLVABWRVFZVl1QQFgxVlNfRFZcUlRXRlNeXjsOAxUeFF5JWBYZEEoKFBINSQcJGk4%3D", "part": "XT60Connector  XT60-M.  2-Pin Male Plug  Gold Plated for LiPo Battery", "bilateralExtra": 0}, {"name": "XT30 E-Stop Connection", "unit": 0.2664, "qty": 5, "provider": "LCSC", "link": "https://www.lcsc.com/product-detail/C428721.html?s_z=n_q_t_XT30%2520&spm=wm.fly.bg.3.xh___wm.ssy.tc.0.tz&lcsc_vid=TwNdV1UCRlJWUlBeRlYLA1MHQFQLVABWRVFZVl1QQFgxVlNfRFZcUlBRR1RYVTsOAxUeFF5JWBYZEEoKFBINSQcJGk4NBhADEA4cHktXT1VcSQwSGg0%3D", "part": "PCB Vertical Connector XT30UPB30-M.G.* Male Plug for Battery Board", "bilateralExtra": 0}, {"name": "Jetson Header Extension", "unit": 9.99, "qty": 1, "provider": "Amazon", "link": "https://a.co/d/05zeNa1Y", "part": "Frienda 8 Pcs 2 x 20 (40 Pin) Extra Tall Female", "bilateralExtra": 0}, {"name": "Jetson V4 PCB", "unit": 27.0, "qty": 1, "provider": "JLCPCB", "link": null, "part": "Custom PCB, fabricate from Gerber files", "bilateralExtra": 0, "linkNote": "Upload Gerber files to JLCPCB"}]}];
+const KEYS = ['mech','elec','low','high'];
+const store = {
+  get(k,d){try{const v=localStorage.getItem('kneeBOM:'+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('kneeBOM:'+k,JSON.stringify(v))}catch(e){}}
+};
+let mode = 'uni';
+let qtyOverride = store.get('qty',{});   // id -> qty (applies on top of mode)
+let checked = store.get('checked',{});
+let filter = '';
+const money = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const unitFmt = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:n<1&&String(n).split('.')[1]?.length>2?4:2});
+
+DATA.forEach((g,gi)=>{g.key=KEYS[gi];g.items.forEach((it,ii)=>it.id=g.key+'-'+ii)});
+
+function baseQty(it){return it.qty + (mode==='bi'?it.bilateralExtra:0)}
+function qtyOf(it){return it.qty}
+function groupTotal(g){return g.items.reduce((s,it)=>s+it.unit*qtyOf(it),0)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function renderSummary(){
+  const el=document.getElementById('summary');
+  let grand=0;
+  el.innerHTML = DATA.map(g=>{
+    const t=groupTotal(g);grand+=t;
+    const n=g.items.length, d=g.items.filter(i=>checked[i.id]).length;
+    return `<button class="sum" style="--c:${g.color}" data-jump="${g.key}">
+      <div class="k">${esc(g.name)}</div><div class="v">${money(t)}</div>
+      <div class="p">${n} line items · ${d}/${n} acquired</div></button>`;
+  }).join('') + `<div class="sum grand"><div class="k">Grand Total</div><div class="v">${money(grand)}</div><div class="p">${mode==='bi'?'Bilateral':'Unilateral'} build · excl. tax &amp; shipping</div></div>`;
+  el.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{
+    const s=document.getElementById('g-'+b.dataset.jump);s.classList.remove('closed');
+    s.scrollIntoView({behavior:'smooth',block:'start'});syncToggleLabel();
+  });
+  document.getElementById('modeTag').textContent = mode==='bi'?'Bilateral':'Unilateral';
+}
+
+function renderGroups(){
+  const wrap=document.getElementById('groups');
+  const closed=store.get('closed',{});
+  wrap.innerHTML = DATA.map(g=>{
+    const rows=g.items.map(it=>{
+      const q=qtyOf(it);
+      const hay=(it.name+' '+it.part+' '+it.provider).toLowerCase();
+      if(filter && !hay.includes(filter)) return '';
+      const link = it.link ? `<a class="lnk" href="${esc(it.link)}" target="_blank" rel="noopener" title="${esc(it.link)}">${esc(shortUrl(it.link))} ↗</a>` : `<span class="gerb">${esc(it.linkNote)}</span>`;
+      return `<tr class="${checked[it.id]?'done':''}" data-id="${it.id}">
+        <td class="chk"><input type="checkbox" ${checked[it.id]?'checked':''} aria-label="Acquired ${esc(it.name)}"></td>
+        <td class="nm">${esc(it.name)}</td>
+        <td class="pn">${esc(it.part)}</td>
+        <td class="num">${unitFmt(it.unit)}</td>
+        <td class="num">${q}</td>
+        <td class="num"><b>${money(it.unit*q)}</b></td>
+        <td class="prov">${esc(it.provider)}</td>
+        <td class="linkc">${link}</td>
+        <td class="cpc"><button class="cp" type="button" title="Copy part name">Copy</button></td></tr>`;
+    }).join('');
+    const n=g.items.length,d=g.items.filter(i=>checked[i.id]).length;
+    return `<section class="grp ${closed[g.key]?'closed':''}" id="g-${g.key}" style="--c:${g.color}">
+      <div class="ghead" data-key="${g.key}"><span class="chev">▾</span><h2>${esc(g.name)}</h2>
+        <span class="meta">${d}/${n} acquired</span><span class="gt">${money(groupTotal(g))}</span></div>
+      <div class="prog"><i style="width:${n?d/n*100:0}%"></i></div>
+      <div class="gbody">${rows?`<table><thead><tr><th class="chk">✓</th><th>Name</th><th>Part Name</th><th class="num">Unit Price</th><th class="num">Quantity</th><th class="num">Total</th><th>Provider</th><th>Link (where to buy)</th><th class="cpc">Copy</th></tr></thead><tbody>${rows}</tbody></table>`:`<div class="empty">No parts match “${esc(filter)}”.</div>`}
+      <div class="gfoot"><span>Subtotal <b>${money(groupTotal(g))}</b></span></div></div>
+    </section>`;
+  }).join('');
+  wrap.querySelectorAll('.ghead').forEach(h=>h.onclick=()=>{
+    const s=h.parentElement;s.classList.toggle('closed');
+    const c=store.get('closed',{});c[h.dataset.key]=s.classList.contains('closed');store.set('closed',c);syncToggleLabel();
+  });
+  wrap.querySelectorAll('tr[data-id]').forEach(tr=>{
+    const id=tr.dataset.id;
+    tr.querySelector('input[type=checkbox]').onchange=e=>{checked[id]=e.target.checked;if(!checked[id])delete checked[id];store.set('checked',checked);render();};
+    tr.querySelector('.cp').onclick=e=>copyText(findItem(id).part,e.currentTarget);
+  });
+  syncToggleLabel();
+}
+function shortUrl(u){try{const x=new URL(u);let p=x.pathname.replace(/\/$/,'');if(p.length>26)p=p.slice(0,24)+'…';return x.hostname.replace(/^www\./,'')+p}catch(e){return u}}
+async function copyText(s,btn){
+  let ok=false;
+  try{await navigator.clipboard.writeText(s);ok=true}catch(e){
+    try{const ta=document.createElement('textarea');ta.value=s;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ok=document.execCommand('copy');ta.remove()}catch(_){}
+  }
+  if(ok){btn.textContent='Copied ✓';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('ok')},1500)}
+  else toast('Copy blocked here. Part name: '+s);
+}
+function findItem(id){for(const g of DATA)for(const it of g.items)if(it.id===id)return it}
+function syncToggleLabel(){
+  const anyOpen=[...document.querySelectorAll('section.grp')].some(s=>!s.classList.contains('closed'));
+  document.getElementById('toggleAll').textContent=anyOpen?'Collapse all':'Expand all';
+}
+function render(){renderSummary();renderGroups();}
+
+
+document.querySelector('.search').oninput=e=>{filter=e.target.value.trim().toLowerCase();renderGroups();};
+document.getElementById('toggleAll').onclick=()=>{
+  const ss=[...document.querySelectorAll('section.grp')];const anyOpen=ss.some(s=>!s.classList.contains('closed'));
+  const c={};ss.forEach(s=>{s.classList.toggle('closed',anyOpen);c[s.id.slice(2)]=anyOpen});store.set('closed',c);syncToggleLabel();
+};
+document.getElementById('reset').onclick=()=>{checked={};store.set('checked',{});render();toast('Checkmarks cleared');};
+
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3200);}
+
+/* ---------- PDF ---------- */
+function hexRgb(h){h=h.replace('#','');return[0,2,4].map(i=>parseInt(h.substr(i,2),16))}
+function buildPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape',unit:'pt',format:'letter'});
+  const W=doc.internal.pageSize.getWidth(), M=36;
+  const modeName=mode==='bi'?'Bilateral':'Unilateral';
+  doc.setFont('helvetica','bold');doc.setFontSize(17);doc.setTextColor(29,35,41);
+  doc.text('Knee Exoskeleton — Bill of Materials',M,44);
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(95,107,118);
+  doc.text(`${modeName} build  ·  Generated ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'})}  ·  Prices in USD, excluding tax, customs and shipping`,M,60);
+
+  // summary row
+  let x=M, y=74, bw=(W-2*M-4*8)/5, grand=0;
+  DATA.forEach(g=>{
+    const t=groupTotal(g);grand+=t;
+    doc.setFillColor(...hexRgb(g.color));doc.rect(x,y,bw,4,'F');
+    doc.setDrawColor(226,230,234);doc.rect(x,y,bw,40);
+    doc.setFontSize(8.5);doc.setTextColor(95,107,118);doc.text(g.name,x+8,y+17);
+    doc.setFontSize(12.5);doc.setTextColor(29,35,41);doc.setFont('helvetica','bold');doc.text(money(t),x+8,y+32);doc.setFont('helvetica','normal');
+    x+=bw+8;
+  });
+  doc.setFillColor(98,110,122);doc.rect(x,y,bw,40,'F');
+  doc.setFontSize(8.5);doc.setTextColor(230,233,236);doc.text('Grand Total',x+8,y+17);
+  doc.setFontSize(12.5);doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.text(money(grand),x+8,y+32);doc.setFont('helvetica','normal');
+
+  let cursor=y+58;
+  // build notes box, under totals and above Mechanical
+  const notes=[
+    'Items in this table are for a unilateral purchase. For bilateral: +1 motor, +2 IMUs, +1 Teensy.',
+    'Most purchased items are bulk, so there should be enough to cover a bilateral system too. Modify count and purchase per your needs.',
+    'Filament: the whole bilateral system can be printed with 1.5–2 kg of filament. Order more as needed.',
+    'Custom PCBs: upload the Gerber files to JLCPCB. Prices exclude sales tax, customs tax and shipping.'
+  ];
+  const nh=20+notes.length*12+4;
+  doc.setDrawColor(226,230,234);doc.setLineWidth(.5);doc.rect(M,cursor,W-2*M,nh);
+  doc.setFillColor(98,110,122);doc.rect(M,cursor,3,nh,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(29,35,41);doc.text('Build notes',M+12,cursor+14);
+  doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(57,66,75);
+  notes.forEach((n,i)=>doc.text('•  '+n,M+12,cursor+28+i*12));
+  cursor+=nh+16;
+  DATA.forEach(g=>{
+    const col=hexRgb(g.color);
+    const body=g.items.map(it=>{const q=qtyOf(it);return[checked[it.id]?'X':'',it.name,it.part,it.provider,unitFmt(it.unit),String(q),money(it.unit*q),it.link?shortUrl(it.link):'Gerber files (JLCPCB)']});
+    doc.autoTable({
+      startY:cursor, margin:{left:M,right:M},
+      head:[[{content:`${g.name}`,colSpan:6,styles:{halign:'left',fontSize:11}},{content:money(groupTotal(g)),colSpan:2,styles:{halign:'right',fontSize:11}}],
+            ['','Name','Part Name','Provider','Unit Price','Qty','Total','Link (where to buy)']],
+      body,
+      theme:'grid', rowPageBreak:'avoid',
+      styles:{font:'helvetica',fontSize:8.5,cellPadding:4,lineColor:[226,230,234],lineWidth:.5,textColor:[29,35,41],valign:'middle'},
+      headStyles:{fillColor:col,textColor:255,fontStyle:'bold'},
+      alternateRowStyles:{fillColor:[246,248,249]},
+      columnStyles:{0:{cellWidth:20,halign:'center'},1:{cellWidth:120,fontStyle:'bold'},2:{cellWidth:'auto',textColor:[95,107,118]},3:{cellWidth:62},4:{cellWidth:52,halign:'right'},5:{cellWidth:32,halign:'right'},6:{cellWidth:62,halign:'right'},7:{cellWidth:110,fontSize:7.5}},
+      didParseCell(d){
+        if(d.section==='head'&&d.row.index===1){d.cell.styles.fillColor=[250,251,252];d.cell.styles.textColor=[95,107,118];d.cell.styles.fontSize=7.5;if([4,5,6].includes(d.column.index))d.cell.styles.halign='right'}
+        if(d.section==='head'&&d.row.index===1&&d.column.index===0){d.cell.text=['']}
+        if(d.section==='body'&&d.column.index===7&&(g.items[d.row.index]||{}).link){d.cell.styles.textColor=col;d.cell.styles.fontStyle='bold'}
+      },
+      didDrawCell(d){
+        if(d.section==='head'&&d.row.index===1&&d.column.index===0){ /* checkbox glyph */ }
+        if(d.section==='body'&&d.column.index===0){
+          const s=8,cx=d.cell.x+(d.cell.width-s)/2,cy=d.cell.y+(d.cell.height-s)/2;
+          doc.setDrawColor(150,158,166);doc.setLineWidth(.6);doc.rect(cx,cy,s,s);
+        }
+        if(d.section==='body'&&d.column.index===7){const it=g.items[d.row.index];if(it&&it.link)doc.link(d.cell.x,d.cell.y,d.cell.width,d.cell.height,{url:it.link})}
+      },
+      willDrawCell(d){ if(d.section==='body'&&d.column.index===0) d.cell.text=[''] }
+    });
+    cursor=doc.lastAutoTable.finalY+18;
+  });
+  const pages=doc.getNumberOfPages();
+  for(let p=1;p<=pages;p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor(140,148,156);doc.text(`Page ${p} of ${pages}`,W-M,doc.internal.pageSize.getHeight()-18,{align:'right'})}
+  return doc;
+}
+let downloadsP = null;
+try{ if(window.claude && typeof window.claude.use==='function') downloadsP = window.claude.use('downloads'); }catch(e){}
+document.getElementById('pdf').onclick=async()=>{
+  const btn=document.getElementById('pdf');
+  if(!window.jspdf){ try{window.print()}catch(e){} return; }
+  btn.disabled=true;
+  try{
+    const doc=buildPDF();
+    const fname=`Knee_Exo_BOM_${mode==='bi'?'Bilateral':'Unilateral'}.pdf`;
+    const dl = downloadsP ? await downloadsP.catch(()=>null) : null;
+    if(dl){
+      try{await dl.save({filename:fname,data:doc.output('blob')});toast('PDF saved');}
+      catch(err){ if(err&&err.code==='declined') toast('Download cancelled'); else toast('Download unavailable here — opening print dialog'), tryPrint(doc,fname); }
+    } else tryPrint(doc,fname);
+  }finally{btn.disabled=false}
+};
+function tryPrint(doc,fname){
+  // Outside the Claude viewer (e.g. a saved copy of this page) a normal download works.
+  try{doc.save(fname)}catch(e){try{window.print()}catch(_){}}
+}
+render();
+</script>
+</body>
+</html>
