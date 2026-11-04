@@ -8,11 +8,11 @@ https://rajiv-j.github.io/Open-Source-Knee-Exo/
 1. CAD Files + STL Files
 1. Controller Training Code
 1. Low-Level MCU Code
+1. Low-Level PCB Gerber Files
 1. High-Level Jetson Code
 1. Bill Of Materials
 
 ## Updates on the way:
-1. Low-Level PCB Gerber Files
 1. High-Level PCB Gerber Files
 1. Jetson/Battery Belt Holder
 1. Documentation for building and assembly
